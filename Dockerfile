@@ -6,6 +6,8 @@ WORKDIR /home/node/app
 
 COPY pnpm-lock.yaml package.json ./
 
+COPY ./ /home/node/app/
+
 # Install app dependencies using PNPM
 RUN npm install -g pnpm
 # Install dependencies
