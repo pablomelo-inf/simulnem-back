@@ -1,0 +1,39 @@
+name: Deploy to AWS Beanstalk
+on:
+  workflow_dispatch
+  #push:
+  #  branches:
+  #  - main   
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:  
+    - id: commit  
+      uses: prompt/actions-commit-hash@v3
+
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Get current time
+      uses: gerred/actions/current-time@master
+      id: current-time
+
+    - name: CREATE IMAGE AWS ECR
+      uses: kciter/aws-ecr-action@v5
+      with:
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        repo: simulnem-backend
+        region: us-east-1
+        create_repo: true
+        tags: latest    
+
+
+        
+    - name: GENERATE DEPLOYMENT PACKAGE
+      run: zip -r deploy.zip . -x '*.git*' 
+  
+
+    

@@ -1,0 +1,14 @@
+model question {
+  id                 String        @id @default(uuid())
+  year               String        @db.VarChar(4)
+  number             String        @db.VarChar(2)
+  source_font        String        @db.VarChar(250)
+  statement_question String
+  header_question    String
+  createdAt          DateTime      @default(now())
+  alternative        alternative[]
+
+  response_user response_user[]
+
+  @@schema("exam")
+}

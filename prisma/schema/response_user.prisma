@@ -1,0 +1,14 @@
+model response_user {
+  response      String
+  alternativeId String
+  questionId    String
+  userId        String
+  createdAt     DateTime @default(now())
+
+  user        user        @relation(fields: [userId], references: [id])
+  question    question    @relation(fields: [questionId], references: [id])
+  alternative alternative @relation(fields: [alternativeId], references: [id])
+
+  @@id([userId, questionId, alternativeId])
+  @@schema("exam")
+}

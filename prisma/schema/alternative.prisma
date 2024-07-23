@@ -1,0 +1,14 @@
+model alternative {
+  id              String @id @default(uuid())
+  text            String
+  option          String @db.Char(1)
+  response_detail String
+  correct         String @db.Char(1)
+
+  question   question @relation(fields: [questionId], references: [id])
+  questionId String
+
+  response_user response_user[]
+
+  @@schema("exam")
+}
